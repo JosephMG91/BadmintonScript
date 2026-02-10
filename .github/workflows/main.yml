@@ -22,8 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
-          npx playwright install chromium
+          npm install playwright
+          npx playwright install
 
       - name: Run booking script
         env:
