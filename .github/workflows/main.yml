@@ -2,7 +2,7 @@ name: Scheduled Badminton Booking
 
 on:
   schedule:
-    - cron: '55 23 * * *'  # UTC midnight
+    - cron: '05 23 * * *'  # UTC midnight
 
 jobs:
   book:
