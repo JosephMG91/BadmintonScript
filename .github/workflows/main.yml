@@ -3,7 +3,7 @@ name: Badminton Daily Booking
 on:
   schedule:
     # Runs every day at 23:55 (UTC)
-    - cron: '* * * * *'
+    - cron: '55 23 * * *'
   workflow_dispatch:   # allows manual run from GitHub UI
 
 jobs:
