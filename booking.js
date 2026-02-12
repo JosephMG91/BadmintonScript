@@ -6,14 +6,14 @@ const USERNAME = process.env.BOOKING_USERNAME;
 const PASSWORD = process.env.BOOKING_PASSWORD;
 
 const TARGET_SPORT = 'Badminton';
-const AVAIALABLE_SLOTS=' See available spaces';
-const TIME='From 19:00'
+let AVAIALABLE_SLOTS=' See available spaces';
+let TIME='19'
 
 const BOOKING_OPEN_HOUR = 0;
 const BOOKING_OPEN_MINUTE = 0;
 
 const MAX_RETRIES = 6;
-const RETRY_DELAY = 10000; // ms
+const RETRY_DELAY = 5000; // ms
 
 function getBookingDate() {
   const d = new Date();
@@ -33,7 +33,7 @@ function waitUntilMidnight() {
       const now = new Date();
       if (
         now.getHours() === BOOKING_OPEN_HOUR &&
-         && now.getMinutes() >= 0 && now.getMinutes() < 30
+        now.getMinutes() >= 0 && now.getMinutes() < 30
       ) {
         clearInterval(interval);
         resolve();
@@ -70,9 +70,10 @@ function waitUntilMidnight() {
   await page.keyboard.press('Enter');
   await page.waitForLoadState('networkidle');
   await page.click(`text=${AVAIALABLE_SLOTS}`)
-  await page.selectOption('select', '19');
+  await page.selectOption('select', TIME);
   await page.waitForTimeout(2000);
   // await page.pause();
+  AVAIALABLE_SLOTS='From 19:00'
   await page.waitForLoadState('networkidle');
     // Wait until booking opens
 
@@ -83,6 +84,15 @@ function waitUntilMidnight() {
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
+        if(attempt===3){
+        TIME='18'
+        AVAIALABLE_SLOTS='From 18:00'
+      }
+        await page.locator('app-activity-calendar-start-time-filter').click();
+  await page.selectOption('select', TIME);
+  await page.waitForTimeout(2000);
+  
+  await page.waitForLoadState('networkidle');
       const availableSlots = page.locator(".activity-calendar-timetable-slot", {
         has: page.locator('button:has-text("Book now")'),
       });
@@ -166,4 +176,3 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
-
