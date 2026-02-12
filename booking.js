@@ -33,7 +33,7 @@ function waitUntilMidnight() {
       const now = new Date();
       if (
         now.getHours() === BOOKING_OPEN_HOUR &&
-        now.getMinutes() === BOOKING_OPEN_MINUTE
+         && now.getMinutes() >= 0 && now.getMinutes() < 30
       ) {
         clearInterval(interval);
         resolve();
@@ -166,3 +166,4 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
