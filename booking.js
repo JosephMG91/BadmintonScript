@@ -1,13 +1,13 @@
-const { chromium } = require('playwright');
+const { chromium } = require("playwright");
 
-const BOOKING_URL = 'https://swnc.gladstonego.cloud/auth/login';
+const BOOKING_URL = "https://swnc.gladstonego.cloud/auth/login";
 
 const USERNAME = process.env.BOOKING_USERNAME;
 const PASSWORD = process.env.BOOKING_PASSWORD;
 
-const TARGET_SPORT = 'Badminton';
-let AVAIALABLE_SLOTS=' See available spaces';
-let TIME='19'
+const TARGET_SPORT = "Badminton";
+let AVAIALABLE_SLOTS = " See available spaces";
+let TIME = "19";
 
 const BOOKING_OPEN_HOUR = 0;
 const BOOKING_OPEN_MINUTE = 0;
@@ -18,22 +18,27 @@ const RETRY_DELAY = 5000; // ms
 function getBookingDate() {
   const d = new Date();
   d.setDate(d.getDate() + 7);
- // d.setMinutes(d.getMinutes() + 10);
-const date = d
-const formatter = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
-const formattedDate = formatter.format(date);
-console.log(formattedDate);
-return formattedDate
+  // d.setMinutes(d.getMinutes() + 10);
+  const date = d;
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+  const formattedDate = formatter.format(date);
+  console.log(formattedDate);
+  return formattedDate;
 }
 
 function waitUntilMidnight() {
-  console.log('🌙 Waiting for 12:00 AM...');
-  return new Promise(resolve => {
+  console.log("🌙 Waiting for 12:00 AM...");
+  return new Promise((resolve) => {
     const interval = setInterval(() => {
       const now = new Date();
       if (
         now.getHours() === BOOKING_OPEN_HOUR &&
-        now.getMinutes() >= 0 && now.getMinutes() < 30
+        now.getMinutes() >= 0 &&
+        now.getMinutes() < 30
       ) {
         clearInterval(interval);
         resolve();
@@ -54,45 +59,45 @@ function waitUntilMidnight() {
   await page.goto(BOOKING_URL);
 
   // Login if required
-  if (await page.locator('button', { hasText: 'Log In' })) {
+  if (await page.locator("button", { hasText: "Log In" })) {
     // await page.click('text= Log In ');
-    await page.fill('input[type=email]', USERNAME);
-    await page.fill('input[type=password]', PASSWORD);
+    await page.fill("input[type=email]", USERNAME);
+    await page.fill("input[type=password]", PASSWORD);
     await page.click('button:has-text("Log In")');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState("networkidle");
   }
 
   // Navigate BEFORE midnight
-   await waitUntilMidnight();
-  await page.click('input',{hasText:'Start typing an activity..'});
+  await waitUntilMidnight();
+  await page.click("input", { hasText: "Start typing an activity.." });
   await page.click(`text=${TARGET_SPORT}`);
   await page.fill('input[data-qa-id="activityDate"]', bookingDate);
-  await page.keyboard.press('Enter');
-  await page.waitForLoadState('networkidle');
-  await page.click(`text=${AVAIALABLE_SLOTS}`)
-  await page.selectOption('select', TIME);
+  await page.keyboard.press("Enter");
+  await page.waitForLoadState("networkidle");
+  await page.click(`text=${AVAIALABLE_SLOTS}`);
+  await page.selectOption("select", TIME);
   await page.waitForTimeout(2000);
   // await page.pause();
-  AVAIALABLE_SLOTS='From 19:00'
-  await page.waitForLoadState('networkidle');
-    // Wait until booking opens
+  AVAIALABLE_SLOTS = "From 19:00";
+  await page.waitForLoadState("networkidle");
+  // Wait until booking opens
 
-    await page.reload();
+  await page.reload();
   await page.waitForTimeout(2000);
-  console.log('🔍 Looking for available slots...');
-    let booked = false;
+  console.log("🔍 Looking for available slots...");
+  let booked = false;
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
-        if(attempt===3){
-        TIME='18'
-        AVAIALABLE_SLOTS='From 18:00'
+      if (attempt === 3) {
+        TIME = "18";
+        AVAIALABLE_SLOTS = "From 18:00";
       }
-        await page.locator('app-activity-calendar-start-time-filter').click();
-  await page.selectOption('select', TIME);
-  await page.waitForTimeout(2000);
-  
-  await page.waitForLoadState('networkidle');
+      await page.locator("app-activity-calendar-start-time-filter").click();
+      await page.selectOption("select", TIME);
+      await page.waitForTimeout(2000);
+
+      await page.waitForLoadState("networkidle");
       const availableSlots = page.locator(".activity-calendar-timetable-slot", {
         has: page.locator('button:has-text("Book now")'),
       });
@@ -170,7 +175,7 @@ function waitUntilMidnight() {
   }
 
   if (!booked) {
-    console.log('❌ Booking failed after all retries.');
+    console.log("❌ Booking failed after all retries.");
   }
 
   await page.waitForTimeout(3000);
