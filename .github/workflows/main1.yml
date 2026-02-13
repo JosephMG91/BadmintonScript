@@ -1,12 +1,15 @@
-name: Cron Test
+# .github/workflows/run-from-cron.yml
+name: Run from cron-job.org
 
 on:
-  schedule:
-    - cron: '59 10 * * *'
   workflow_dispatch:
+    inputs:
+      source:
+        description: 'Trigger source'
+        required: false
 
 jobs:
-  test:
+  job:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Cron fired at $(date -u)"
+      - run: echo "Triggered via API"
