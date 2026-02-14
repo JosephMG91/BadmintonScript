@@ -83,7 +83,7 @@ function waitUntilMidnight() {
   // Wait until booking opens
 
   await page.reload();
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(1000);
   console.log("🔍 Looking for available slots...");
   let booked = false;
 
@@ -181,3 +181,4 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
