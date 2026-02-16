@@ -130,10 +130,9 @@ function waitUntilMidnight() {
 
       console.log("Available slots:", slots);
       const nextpreferredOrder = [
-        "Jubilee Hall Court 1",
+        "Jubilee Hall Court 3",
         "Jubilee Hall Court 2",
-        "Jubilee Hall Court 4",
-        "Jubilee Hall Court 5",
+        "Jubilee Hall Court 4"
       ];
       const preferredOrder = [
         "Main Ct 1",
@@ -181,4 +180,5 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
