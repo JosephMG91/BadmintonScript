@@ -29,7 +29,17 @@ function getBookingDate() {
   console.log(formattedDate);
   return formattedDate;
 }
+async function selectDate(page, dateString) {
+  const formatted = `${dateString}T00:00:00.000Z`;
 
+  await page.click(`label[for="${formatted}"]`);
+}
+function getNextWeekDateISO() {
+  const date = new Date();
+  date.setDate(date.getDate() + 7);
+
+  return date.toISOString().split("T")[0]; // YYYY-MM-DD
+}         
 function waitUntilMidnight() {
   console.log("🌙 Waiting for 12:00 AM...");
   return new Promise((resolve) => {
@@ -94,7 +104,10 @@ function waitUntilMidnight() {
         AVAIALABLE_SLOTS = "From 18:00";
       }
       await page.locator("app-activity-calendar-start-time-filter").click();
-      await page.selectOption("select", TIME);
+      await page.selectOption("select", TIME).click;
+      await page.waitForTimeout(2000);
+      const bookingDate = getNextWeekDateISO();
+      await selectDate(page, bookingDate);
       await page.waitForTimeout(2000);
 
       await page.waitForLoadState("networkidle");
@@ -180,7 +193,6 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
-
 
 
 
