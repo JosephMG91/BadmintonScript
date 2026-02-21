@@ -18,7 +18,7 @@ const RETRY_DELAY = 5000; // ms
 function getBookingDate() {
   const d = new Date();
   d.setDate(d.getDate() + 7);
-  d.setMinutes(d.getMinutes() + 10);
+ // d.setMinutes(d.getMinutes() + 10);
   const date = d;
   const formatter = new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
@@ -180,6 +180,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
