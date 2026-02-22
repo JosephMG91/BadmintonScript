@@ -31,7 +31,7 @@ function getBookingDate() {
 }
 async function selectDate(page, dateString) {
   const formatted = `${dateString}T00:00:00.000Z`;
-
+console.log('booking date now',formatted);
   await page.click(`label[for="${formatted}"]`);
 }
 function getNextWeekDateISO() {
@@ -193,6 +193,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
