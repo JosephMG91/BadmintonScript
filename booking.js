@@ -37,7 +37,7 @@ async function selectDate(page, dateString) {
 function getNextWeekDateISO() {
   const date = new Date();
   date.setDate(date.getDate() + 7);
-
+   date.setMinutes(date.getMinutes() + 10);
   return date.toISOString().split("T")[0]; // YYYY-MM-DD
 }         
 function waitUntilMidnight() {
@@ -193,6 +193,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
