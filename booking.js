@@ -13,7 +13,7 @@ const BOOKING_OPEN_HOUR = 0;
 const BOOKING_OPEN_MINUTE = 0;
 
 const MAX_RETRIES = 6;
-const RETRY_DELAY = 5000; // ms
+const RETRY_DELAY = 3000; // ms
 
 function getBookingDate() {
   const d = new Date();
@@ -86,7 +86,7 @@ function waitUntilMidnight() {
   await page.waitForLoadState("networkidle");
   await page.click(`text=${AVAIALABLE_SLOTS}`);
   await page.selectOption("select", TIME);
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(1500);
   // await page.pause();
   AVAIALABLE_SLOTS = "From 19:00";
   await page.waitForLoadState("networkidle");
@@ -105,10 +105,10 @@ function waitUntilMidnight() {
       }
       await page.locator("app-activity-calendar-start-time-filter").click();
       await page.selectOption("select", TIME).click;
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(1500);
       const bookingDate = getNextWeekDateISO();
       await selectDate(page, bookingDate);
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(1000);
 
       await page.waitForLoadState("networkidle");
       const availableSlots = page.locator(".activity-calendar-timetable-slot", {
@@ -193,6 +193,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
