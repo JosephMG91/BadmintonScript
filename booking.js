@@ -174,7 +174,7 @@ function waitUntilMidnight() {
         .getByRole("button", { name: "Book Badminton for £0.00 at" })
         .click();
 
-      console.log("🔍 Looking for available slots...");
+      console.log("🔍 Looking for available slots...",bestSlot);
 
       console.log(`✅ Booking successful on attempt ${attempt}`);
       booked = true;
@@ -193,6 +193,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
