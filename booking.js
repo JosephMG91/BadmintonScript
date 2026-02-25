@@ -78,7 +78,7 @@ function waitUntilMidnight() {
   }
 
   // Navigate BEFORE midnight
-  await waitUntilMidnight();
+  
   await page.click("input", { hasText: "Start typing an activity.." });
   await page.click(`text=${TARGET_SPORT}`);
   await page.fill('input[data-qa-id="activityDate"]', bookingDate);
@@ -106,10 +106,11 @@ function waitUntilMidnight() {
       }
       await page.locator("app-activity-calendar-start-time-filter").click();
       await page.selectOption("select", TIME).click;
-      await page.waitForTimeout(600);
+      await page.waitForTimeout(1000);
+      await waitUntilMidnight();
       const bookingDate = getNextWeekDateISO();
       await selectDate(page, bookingDate);
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(1500);
 
       await page.waitForLoadState("networkidle");
       const availableSlots = page.locator(".activity-calendar-timetable-slot", {
@@ -194,6 +195,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
