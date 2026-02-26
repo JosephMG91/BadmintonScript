@@ -183,6 +183,7 @@ function waitUntilMidnight() {
       break;
     } catch (err) {
       console.log(`⚠️ Attempt ${attempt} failed, retrying...`);
+      console.log('error',err)
       await page.reload();
       await page.waitForTimeout(RETRY_DELAY);
     }
@@ -195,6 +196,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
