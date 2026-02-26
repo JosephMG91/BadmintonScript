@@ -7,7 +7,7 @@ const PASSWORD = process.env.BOOKING_PASSWORD;
 
 const TARGET_SPORT = "Badminton";
 let AVAIALABLE_SLOTS = " See available spaces";
-let TIME = "18";
+let TIME = "19";
 
 const BOOKING_OPEN_HOUR = 0;
 const BOOKING_OPEN_MINUTE = 0;
@@ -195,6 +195,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
