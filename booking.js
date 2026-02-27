@@ -106,11 +106,12 @@ function waitUntilMidnight() {
       }
       await page.locator("app-activity-calendar-start-time-filter").click();
       await page.selectOption("select", TIME).click;
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(2000);
       await waitUntilMidnight();
+      await page.waitForTimeout(1500);
       const bookingDate = getNextWeekDateISO();
       await selectDate(page, bookingDate);
-      await page.waitForTimeout(1500);
+      await page.waitForTimeout(2000);
 
       await page.waitForLoadState("networkidle");
       const availableSlots = page.locator(".activity-calendar-timetable-slot", {
@@ -196,6 +197,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
