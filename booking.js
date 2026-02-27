@@ -108,6 +108,8 @@ function waitUntilMidnight() {
       await page.selectOption("select", TIME).click;
       await page.waitForTimeout(1000);
       await waitUntilMidnight();
+      await page.reload();
+  await page.waitForTimeout(1000);
       const bookingDate = getNextWeekDateISO();
       await selectDate(page, bookingDate);
       await page.waitForTimeout(1500);
@@ -196,6 +198,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
