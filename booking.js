@@ -172,7 +172,7 @@ function waitUntilMidnight() {
         bestSlot = slots[0];
       }
 
-      await bestSlot.locator.locator('button:has-text("Book now")').click();
+      await bestSlot.locator('button:has-text("Book now")').click();
       await page.waitForLoadState("networkidle");
       await page
         .getByRole("button", { name: "Book Badminton for £0.00 at" })
@@ -198,6 +198,7 @@ function waitUntilMidnight() {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
 
 
 
