@@ -43,6 +43,7 @@ function getNextWeekDateISO() {
 function waitUntilMidnight() {
   console.log("🌙 Waiting for 12:00 AM...");
   const nnow=new Date();
+  nnow.setHours(nnow.getHours()+1)
   console.log(nnow.getHours())
   return new Promise((resolve) => {
     const interval = setInterval(() => {
