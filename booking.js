@@ -48,6 +48,7 @@ function waitUntilMidnight() {
   return new Promise((resolve) => {
     const interval = setInterval(() => {
       const now = new Date();
+      now.setHours(now.getHours()+1)
       if (
         now.getHours() === BOOKING_OPEN_HOUR &&
         now.getMinutes() >= 0 &&
