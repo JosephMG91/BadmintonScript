@@ -17,6 +17,7 @@ const RETRY_DELAY = 2000; // ms
 
 function getBookingDate() {
   const d = new Date();
+  //set to 7 days after day light savings
   d.setDate(d.getDate() + 8);
  // d.setMinutes(d.getMinutes() + 10);
   const date = d;
@@ -36,13 +37,15 @@ console.log('booking date now',formatted);
 }
 function getNextWeekDateISO() {
   const date = new Date();
-  date.setDate(date.getDate() + 7);
+  //hange to 7 after daylight savings
+  date.setDate(date.getDate() + 8);
    date.setMinutes(date.getMinutes() + 10);
   return date.toISOString().split("T")[0]; // YYYY-MM-DD
 }         
 function waitUntilMidnight() {
   console.log("🌙 Waiting for 12:00 AM...");
   const nnow=new Date();
+  //can remove +1 hour after day light savings
   nnow.setHours(nnow.getHours()+1)
   console.log(nnow.getHours())
   return new Promise((resolve) => {
