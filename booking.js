@@ -17,7 +17,7 @@ const RETRY_DELAY = 2000; // ms
 
 function getBookingDate() {
   const d = new Date();
-  d.setDate(d.getDate() + 7);
+  d.setDate(d.getDate() + 8);
  // d.setMinutes(d.getMinutes() + 10);
   const date = d;
   const formatter = new Intl.DateTimeFormat("en-GB", {
