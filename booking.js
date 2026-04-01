@@ -37,8 +37,9 @@ console.log('booking date now',formatted);
 }
 function getNextWeekDateISO() {
   const date = new Date();
-  //hange to 7 after daylight savings
-  date.setDate(date.getDate() + 8);
+  //remove +1 hour after day light savings
+  date.setDate(date.getDate() + 7);
+  date.setHours(date.getHours()+1)
    date.setMinutes(date.getMinutes() + 10);
   return date.toISOString().split("T")[0]; // YYYY-MM-DD
 }         
