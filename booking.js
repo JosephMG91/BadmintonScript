@@ -30,11 +30,25 @@ function getBookingDate() {
   console.log(formattedDate);
   return formattedDate;
 }
-async function selectDate(page, dateString) {
-  const formatted = `${dateString}T00:00:00.000Z`;
-console.log('booking date now',formatted);
-  await page.click(`label[for="${formatted}"]`);
+// async function selectDate(page, dateString) {
+//   const formatted = `${dateString}T00:00:00.000Z`;
+// console.log('booking date now',formatted);
+//   await page.click(`label[for="${formatted}"]`);
+// }
+
+async function selectDate(page, date) {
+  const d = new Date(date);
+
+  const weekday = d.toLocaleDateString('en-GB', { weekday: 'short' });
+  const day = d.getDate();
+  const month = d.toLocaleDateString('en-GB', { month: 'short' });
+  const year = d.getFullYear();
+
+  const ariaLabel = `${weekday} ${day}: View availability for ${month} ${day}, ${year}`;
+
+  await page.getByLabel(ariaLabel).click();
 }
+
 function getNextWeekDateISO() {
   const date = new Date();
   //remove +1 hour after day light savings
