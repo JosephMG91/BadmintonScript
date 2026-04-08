@@ -7,7 +7,7 @@ const PASSWORD = process.env.BOOKING_PASSWORD;
 
 const TARGET_SPORT = "Badminton";
 let AVAIALABLE_SLOTS = " See available spaces";
-let TIME = "11";
+let TIME = "19";
 
 const BOOKING_OPEN_HOUR = 0;
 const BOOKING_OPEN_MINUTE = 0;
@@ -99,9 +99,9 @@ function waitUntilMidnight() {
       console.log(`⏱ UK Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
       console.log('yes',now.getHours())
       if (
-        now.getHours() === 18 &&
-        now.getMinutes() >= 00 &&
-        now.getMinutes() < 10
+        now.getHours() === 0 &&
+        now.getMinutes() >= 0 &&
+        now.getMinutes() < 30
       ) {
           console.log('yes')
         clearInterval(interval);
@@ -114,13 +114,11 @@ function waitUntilMidnight() {
 async function isBookingConfirmed(page) {
   const heading = page.getByRole('heading', { name: 'Booking Confirmed!' });
  
-
   try {
     await heading.waitFor({ timeout: 2000 });
 
     // Optional: check booking reference exists
   
-
     return true;
   } catch {
     return false;
