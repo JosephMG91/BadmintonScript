@@ -7,7 +7,7 @@ const PASSWORD = process.env.BOOKING_PASSWORD;
 
 const TARGET_SPORT = "Badminton";
 let AVAIALABLE_SLOTS = " See available spaces";
-let TIME = "19";
+let TIME = "11";
 
 const BOOKING_OPEN_HOUR = 0;
 const BOOKING_OPEN_MINUTE = 0;
@@ -57,25 +57,30 @@ function getNextWeekDateISO() {
    date.setMinutes(date.getMinutes() + 10);
   return date.toISOString().split("T")[0]; // YYYY-MM-DD
 }         
+function getUKTime() {
+  return new Date(
+    new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })
+  );
+}
+
 function waitUntilMidnight() {
-  console.log("🌙 Waiting for 12:00 AM...");
-  const nnow=new Date();
-  //can remove +1 hour after day light savings
-  nnow.setHours(nnow.getHours()+1)
-  console.log(nnow.getHours())
+  console.log("🌙 Waiting for 12:00 AM UK time...");
+
   return new Promise((resolve) => {
     const interval = setInterval(() => {
-      const now = new Date();
-      now.setHours(now.getHours()+1)
+      const now = getUKTime();
+
+      console.log(`⏱ UK Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
+
       if (
-        now.getHours() === BOOKING_OPEN_HOUR &&
+        now.getHours() === 0 &&
         now.getMinutes() >= 0 &&
         now.getMinutes() < 30
       ) {
         clearInterval(interval);
         resolve();
       }
-    }, 100);
+    }, 500); // check twice per second
   });
 }
 
