@@ -71,7 +71,7 @@ function waitUntilMidnight() {
       const now = getUKTime();
 
       console.log(`⏱ UK Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
- console.log('yes',now.getHours())
+      console.log('yes',now.getHours())
       if (
         now.getHours() === 17 &&
         now.getMinutes() >= 40 &&
