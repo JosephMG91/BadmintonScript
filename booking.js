@@ -74,8 +74,8 @@ function waitUntilMidnight() {
 
       if (
         now.getHours() === 17 &&
-        now.getMinutes() >= 30 &&
-        now.getMinutes() < 35
+        now.getMinutes() >= 36 &&
+        now.getMinutes() < 38
       ) {
         clearInterval(interval);
         resolve();
