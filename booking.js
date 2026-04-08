@@ -50,7 +50,7 @@ async function selectDate(page, date) {
 }
 
 function getNextWeekDateISO() {
-  const date = new Date();
+  const date =  getUKTime();
   //remove +1 hour after day light savings
   date.setDate(date.getDate() + 7);
   date.setHours(date.getHours()+1)
