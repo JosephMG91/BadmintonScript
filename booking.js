@@ -52,22 +52,27 @@ async function selectDate(page, date) {
 function getNextWeekDateISO() {
   const now = new Date();
 
-  // Get UK date parts safely
+  // ✅ Get UK date parts safely (no parsing issues)
   const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Europe/London",
     year: "numeric",
     month: "numeric",
-    day: "numeric"
+    day: "numeric",
+    hour: "numeric"
   }).formatToParts(now);
 
   const day = parseInt(parts.find(p => p.type === "day").value);
   const month = parseInt(parts.find(p => p.type === "month").value);
   const year = parseInt(parts.find(p => p.type === "year").value);
+  const hour = parseInt(parts.find(p => p.type === "hour").value);
 
-  // Create proper date object (no timezone ambiguity)
-  const ukDate = new Date(year, month - 1, day);
+  // ✅ Build proper date
+  const ukDate = new Date(year, month - 1, day, hour);
 
-  // Add 7 days
+  // ✅ Add +1 hour buffer (for 11:55 → next day)
+  ukDate.setHours(ukDate.getHours() + 1);
+
+  // ✅ Add 7 days
   ukDate.setDate(ukDate.getDate() + 7);
 
   // Format YYYY-MM-DD
@@ -76,7 +81,8 @@ function getNextWeekDateISO() {
   const d = String(ukDate.getDate()).padStart(2, "0");
 
   return `${y}-${m}-${d}`;
-}       
+}
+
 function getUKTime() {
   return new Date(
     new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })
