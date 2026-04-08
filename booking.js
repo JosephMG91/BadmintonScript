@@ -105,6 +105,22 @@ function waitUntilMidnight() {
   });
 }
 
+async function isBookingConfirmed(page) {
+  const heading = page.getByRole('heading', { name: 'Booking Confirmed!' });
+ 
+
+  try {
+    await heading.waitFor({ timeout: 2000 });
+
+    // Optional: check booking reference exists
+  
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 (async () => {
   const bookingDate = getBookingDate();
   console.log(`📅 Target booking date: ${bookingDate}`);
@@ -226,6 +242,15 @@ function waitUntilMidnight() {
         .click();
   await page.waitForTimeout(2000);
       console.log("🔍 Looking for available slots...",bestSlot);
+        const success = await isBookingConfirmed(page);
+
+    if (success) {
+      console.log("✅ Booking Confirmed!");
+      
+    }
+    else{
+      throw new Error("Booking Failed");
+    }
 
       console.log(`✅ Booking successful on attempt ${attempt}`);
       booked = true;
