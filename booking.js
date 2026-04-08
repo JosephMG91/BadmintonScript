@@ -71,12 +71,13 @@ function waitUntilMidnight() {
       const now = getUKTime();
 
       console.log(`⏱ UK Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
-
+ console.log('yes',now.getHours())
       if (
         now.getHours() === 17 &&
         now.getMinutes() >= 36 &&
         now.getMinutes() < 38
       ) {
+          console.log('yes')
         clearInterval(interval);
         resolve();
       }
