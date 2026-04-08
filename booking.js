@@ -45,7 +45,7 @@ async function selectDate(page, date) {
   const year = d.getFullYear();
 
   const ariaLabel = `${weekday} ${day}: View availability for ${month} ${day}, ${year}`;
-
+console.log('label click',ariaLabel)
   await page.getByLabel(ariaLabel).click();
 }
 
@@ -178,6 +178,7 @@ async function isBookingConfirmed(page) {
       await waitUntilMidnight();
       await page.waitForTimeout(1500);
       const bookingDate = getNextWeekDateISO();
+      console.log('booking date',bookingDate)
       await selectDate(page, bookingDate);
       await page.waitForTimeout(2000);
 
