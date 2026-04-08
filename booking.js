@@ -74,8 +74,8 @@ function waitUntilMidnight() {
  console.log('yes',now.getHours())
       if (
         now.getHours() === 17 &&
-        now.getMinutes() >= 36 &&
-        now.getMinutes() < 38
+        now.getMinutes() >= 40 &&
+        now.getMinutes() < 48
       ) {
           console.log('yes')
         clearInterval(interval);
