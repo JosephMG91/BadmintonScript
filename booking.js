@@ -50,14 +50,33 @@ async function selectDate(page, date) {
 }
 
 function getNextWeekDateISO() {
-  const date =  getUKTime();
-  console.log(date)
-  //remove +1 hour after day light savings
-  date.setDate(date.getDate() + 7);
-  date.setHours(date.getHours()+1)
-   date.setMinutes(date.getMinutes() + 10);
-  return date.toISOString().split("T")[0]; // YYYY-MM-DD
-}         
+  const now = new Date();
+
+  // Get UK date parts safely
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/London",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric"
+  }).formatToParts(now);
+
+  const day = parseInt(parts.find(p => p.type === "day").value);
+  const month = parseInt(parts.find(p => p.type === "month").value);
+  const year = parseInt(parts.find(p => p.type === "year").value);
+
+  // Create proper date object (no timezone ambiguity)
+  const ukDate = new Date(year, month - 1, day);
+
+  // Add 7 days
+  ukDate.setDate(ukDate.getDate() + 7);
+
+  // Format YYYY-MM-DD
+  const y = ukDate.getFullYear();
+  const m = String(ukDate.getMonth() + 1).padStart(2, "0");
+  const d = String(ukDate.getDate()).padStart(2, "0");
+
+  return `${y}-${m}-${d}`;
+}       
 function getUKTime() {
   return new Date(
     new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })
@@ -74,9 +93,9 @@ function waitUntilMidnight() {
       console.log(`⏱ UK Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
       console.log('yes',now.getHours())
       if (
-        now.getHours() === 17 &&
-        now.getMinutes() >= 50 &&
-        now.getMinutes() < 58
+        now.getHours() === 18 &&
+        now.getMinutes() >= 00 &&
+        now.getMinutes() < 10
       ) {
           console.log('yes')
         clearInterval(interval);
