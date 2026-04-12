@@ -18,7 +18,7 @@ const RETRY_DELAY = 2000; // ms
 function getBookingDate() {
   const d = new Date();
   //set to 7 days after day light savings
-  d.setDate(d.getDate() + 6);
+  d.setDate(d.getDate() + 7);
  // d.setMinutes(d.getMinutes() + 10);
   const date = d;
   const formatter = new Intl.DateTimeFormat("en-GB", {
@@ -99,8 +99,8 @@ function waitUntilMidnight() {
       console.log(`⏱ UK Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
       console.log('yes',now.getHours())
       if (
-        now.getHours() === 11 &&
-        now.getMinutes() >= 16 &&
+        now.getHours() === 0 &&
+        now.getMinutes() >= 0 &&
         now.getMinutes() < 30
       ) {
           console.log('yes')
