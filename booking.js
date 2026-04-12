@@ -100,7 +100,7 @@ function waitUntilMidnight() {
       console.log('yes',now.getHours())
       if (
         now.getHours() === 11 &&
-        now.getMinutes() >= 10 &&
+        now.getMinutes() >= 16 &&
         now.getMinutes() < 30
       ) {
           console.log('yes')
