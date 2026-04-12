@@ -99,8 +99,8 @@ function waitUntilMidnight() {
       console.log(`⏱ UK Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`);
       console.log('yes',now.getHours())
       if (
-        now.getHours() === 0 &&
-        now.getMinutes() >= 0 &&
+        now.getHours() === 11 &&
+        now.getMinutes() >= 10 &&
         now.getMinutes() < 30
       ) {
           console.log('yes')
