@@ -61,7 +61,7 @@ function waitUntilMidnight() {
   const bookingDate = getBookingDate();
   console.log(`📅 Target booking date: ${bookingDate}`);
 
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext();
   const page = await context.newPage();
 
