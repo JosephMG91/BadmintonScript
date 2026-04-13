@@ -2,8 +2,8 @@ const { chromium } = require("playwright");
 
 const BOOKING_URL = "https://swnc.gladstonego.cloud/auth/login";
 
-const USERNAME = 'mgjoseph6@gmail.com';
-const PASSWORD = 'Mgj12345@';
+const USERNAME = process.env.BOOKING_USERNAME;
+const PASSWORD = process.env.BOOKING_PASSWORD;
 
 const TARGET_SPORT = "Badminton";
 let AVAIALABLE_SLOTS = " See available spaces";
