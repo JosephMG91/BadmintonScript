@@ -1,7 +1,7 @@
 name: Badminton Daily Booking
 
 on:
-  workflow_dispatch:   # allows manual run from GitHub UI
+  workflow_dispatch:   # manual trigger
 
 jobs:
   run-booking:
@@ -12,15 +12,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js (v24)
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: |
-          npm install playwright
-          npx playwright install
+          npm ci || npm install
+          npx playwright install --with-deps
 
       - name: Run booking script
         env:
@@ -28,3 +28,13 @@ jobs:
           BOOKING_PASSWORD: ${{ secrets.BOOKING_PASSWORD }}
         run: |
           node booking.js
+
+      # 🔥 Optional but VERY useful for debugging
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-files
+          path: |
+            *.png
+            *.log
