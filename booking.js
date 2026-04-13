@@ -84,10 +84,26 @@ function getNextWeekDateISO() {
 }
 
 function getUKTime() {
+  const now = new Date();
+
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/London",
+    hour12: false,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  }).formatToParts(now);
+
+  const get = (t) => parts.find(p => p.type === t).value;
+
   return new Date(
-    new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })
+    `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}:${get("second")}`
   );
 }
+
 
 function waitUntilMidnight() {
   console.log("🌙 Waiting for 12:00 AM UK time...");
