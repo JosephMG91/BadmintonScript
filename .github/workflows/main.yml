@@ -27,4 +27,4 @@ jobs:
           BOOKING_USERNAME: ${{ secrets.BOOKING_USERNAME }}
           BOOKING_PASSWORD: ${{ secrets.BOOKING_PASSWORD }}
         run: |
-          node booking.js
+          node newbook.js
