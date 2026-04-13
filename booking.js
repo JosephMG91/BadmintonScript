@@ -1,5 +1,5 @@
-//const { chromium } = require("playwright");
-import chromium from 'playwright';
+const { chromium } = require("playwright");
+//import chromium from 'playwright';
 const BOOKING_URL = "https://swnc.gladstonego.cloud/auth/login";
 
 const USERNAME = process.env.BOOKING_USERNAME;
