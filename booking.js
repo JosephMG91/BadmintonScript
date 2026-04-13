@@ -204,9 +204,9 @@ async function isBookingConfirmed(page) {
   await page.waitForTimeout(2000);
 
       
-      // const availableSlots = page.locator(".activity-calendar-timetable-slot", {
-      //   has: page.locator('button:has-text("Book now")'),
-      // });
+      const availableSlots = page.locator(".activity-calendar-timetable-slot", {
+        has: page.locator('button:has-text("Book now")'),
+      });
       const count = await availableSlots.count();
 
       if (count === 0) {
