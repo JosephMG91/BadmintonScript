@@ -118,7 +118,7 @@ function waitUntilMidnight() {
       if (
         now.getHours() === 0 &&
         now.getMinutes() >= 0 &&
-        now.getMinutes() < 30
+        now.getMinutes() < 55
       ) {
           console.log('yes')
         clearInterval(interval);
@@ -146,7 +146,10 @@ async function isBookingConfirmed(page) {
   const bookingDate = getBookingDate();
   console.log(`📅 Target booking date: ${bookingDate}`);
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
   const context = await browser.newContext();
   const page = await context.newPage();
 
