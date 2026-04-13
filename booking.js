@@ -5,6 +5,7 @@ const BOOKING_URL = "https://swnc.gladstonego.cloud/auth/login";
 const USERNAME = process.env.BOOKING_USERNAME;
 const PASSWORD = process.env.BOOKING_PASSWORD;
 
+
 const TARGET_SPORT = "Badminton";
 let AVAIALABLE_SLOTS = " See available spaces";
 let TIME = "19";
@@ -291,6 +292,24 @@ async function isBookingConfirmed(page) {
   await page.waitForTimeout(3000);
   await browser.close();
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
