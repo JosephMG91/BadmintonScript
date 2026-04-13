@@ -205,7 +205,7 @@ async function isBookingConfirmed(page) {
 
       
       const availableSlots = page.locator(".activity-calendar-timetable-slot", {
-        has: page.locator('button:has-text("Book now")'),
+        has: page.locator('button[data-qa-id^="book-slot-btn"]');,
       });
       const count = await availableSlots.count();
 
