@@ -1,0 +1,24 @@
+{
+  "name": "badminton-booking-bot",
+  "version": "1.0.0",
+  "description": "Automated badminton court booking bot using Playwright",
+  "main": "booking.js",
+  "type": "module",
+  "scripts": {
+    "start": "node booking.js",
+    "dev": "node booking.js",
+    "test": "echo \"No tests yet\"",
+    "postinstall": "npx playwright install --with-deps"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "booking-bot",
+    "badminton"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.43.0"
+  }
+}
