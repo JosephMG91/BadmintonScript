@@ -200,9 +200,23 @@ async function isBookingConfirmed(page) {
       await page.waitForTimeout(2000);
 
       await page.waitForLoadState("networkidle");
-      const availableSlots = page.locator(".activity-calendar-timetable-slot", {
-        has: page.locator('button:has-text("Book now")'),
-      });
+
+await page.waitForSelector(".activity-calendar-timetable-slot");
+
+// wait for booking buttons
+await page.waitForSelector('button:has-text("Book now")');
+
+const availableSlots = page.locator(".activity-calendar-timetable-slot", {
+  has: page.locator('button:has-text("Book now")'),
+});
+
+// ensure at least one exists
+await availableSlots.first().waitFor({ timeout: 10000 });
+
+      
+      // const availableSlots = page.locator(".activity-calendar-timetable-slot", {
+      //   has: page.locator('button:has-text("Book now")'),
+      // });
       const count = await availableSlots.count();
 
       if (count === 0) {
