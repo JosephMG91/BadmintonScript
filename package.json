@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "booking.js",
   "scripts": {
-    "start": "node booking.js"
+    "start": "node newbook.js"
   },
   "dependencies": {
     "playwright": "^1.43.0"
