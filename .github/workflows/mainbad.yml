@@ -1,0 +1,37 @@
+name: Badminton Booking Bot
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-booking:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install --with-deps
+
+      - name: Run bot
+        env:
+          BOOKING_USERNAME: ${{ secrets.BOOKING_USERNAME }}
+          BOOKING_PASSWORD: ${{ secrets.BOOKING_PASSWORD }}
+        run: npm start
+
+      # 🔥 Debug screenshots
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-images
+          path: "*.png"
